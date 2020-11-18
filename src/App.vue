@@ -18,19 +18,19 @@
     </v-app-bar>
 
     <v-main>
-      <HelloWorld/>
+      <CommandList/>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+import CommandList from './components/CommandList';
 
 export default {
   name: 'App',
 
   components: {
-    HelloWorld,
+    CommandList,
   },
 
   data: () => ({

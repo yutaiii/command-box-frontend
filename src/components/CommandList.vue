@@ -1,7 +1,7 @@
 <template>
   <v-container>
 
-    <v-row class="text-center">
+    <v-row>
       <v-col cols="3" v-for="(item, i) in commandList" :key="i">
         <div class="command-box">
           <h2 class="box-title">{{ item.title }}</h2>
@@ -12,7 +12,7 @@
               </span>
             </v-col>
             <v-col cols="2">
-              <v-icon>mdi-content-copy</v-icon>
+              <v-icon @click="copyToClipboard(item.text)">mdi-content-copy</v-icon>
             </v-col>
           </v-row>
         </div>
@@ -43,9 +43,25 @@
         {
           title: '安全にforce pushする',
           text: 'git push --force-with-lease [remote-name] [branch-name]',
+        },
+        {
+          title: 'hogeaaaaaaaaaaaaaaaaaaaa',
+          text: 'fugaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         }
       ],
     }),
+
+    methods: {
+      copyToClipboard(text) {
+        navigator.clipboard.writeText(text)
+        .then(() => {
+          alert('copied to clipboard!');
+        })
+        .catch(e => {
+          alert('Error:' + e);
+        })
+      }
+    }
   }
 </script>
 
@@ -57,6 +73,8 @@
 
 .box-title {
   font-weight: bold;
+  word-wrap: break-word;
+  text-align: left;
 }
 
 .code {
@@ -64,6 +82,8 @@
   background-color: black;
   padding: 5px;
   float: left;
+  text-align: left;
+  word-break: break-all ;
 }
 
 .test {

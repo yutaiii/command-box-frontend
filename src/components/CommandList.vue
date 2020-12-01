@@ -4,15 +4,15 @@
     <v-row>
       <v-col cols="3" v-for="(item, i) in commandList" :key="i">
         <div class="command-box">
-          <h2 class="box-title">{{ item.title }}</h2>
+          <h2 class="box-title">{{ item.Title }}</h2>
           <v-row>
             <v-col cols="10">
               <span class="code">
-                $ {{ item.text }}
+                $ {{ item.Text }}
               </span>
             </v-col>
             <v-col cols="2">
-              <v-icon @click="copyToClipboard(item.text)">mdi-content-copy</v-icon>
+              <v-icon @click="copyToClipboard(item.Text)">mdi-content-copy</v-icon>
             </v-col>
           </v-row>
         </div>
@@ -23,33 +23,24 @@
 </template>
 
 <script>
+import axios from 'axios'
+
   export default {
     name: 'CommandList',
 
     data: () => ({
-      commandList: [
-        {
-          title: '安全にforce pushする',
-          text: 'git push --force-with-lease [remote-name] [branch-name]',
-        },
-        {
-          title: '安全にforce pushする',
-          text: 'git push --force-with-lease [remote-name] [branch-name]',
-        },
-        {
-          title: '安全にforce pushする',
-          text: 'git push --force-with-lease [remote-name] [branch-name]',
-        },
-        {
-          title: '安全にforce pushする',
-          text: 'git push --force-with-lease [remote-name] [branch-name]',
-        },
-        {
-          title: 'hogeaaaaaaaaaaaaaaaaaaaa',
-          text: 'fugaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        }
-      ],
+      commandList: [],
     }),
+
+    mounted() {
+      axios.get("http://localhost:8000/commands")
+      .then(result => {
+        this.commandList = result.data;
+      })
+      .catch(e => {
+        console.log(e, "error")
+      })
+    },
 
     methods: {
       copyToClipboard(text) {
